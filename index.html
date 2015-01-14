@@ -5,8 +5,9 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
     <script type="text/javascript" >
+        var storage = localStorage;
+
         $(function() {
-            storage = localStorage;
             display_cart();
         });
 
@@ -19,7 +20,7 @@
             var $quantity = 1;
 
             if ($storage_item)
-                $quantity = $quantity+1*$storage_item;
+                $quantity += ($storage_item * 1);
 
             storage.setItem( $item, $quantity );
 
@@ -29,7 +30,8 @@
         }
 
         function display_cart(){
-            var $cart_text = '';
+            var $cart_text = '', $item_name = '', $item_qty = '';
+
             for (var i = 0; i < storage.length; i++){
                 $item_name = storage.key(i);
                 $item_qty =  storage.getItem(storage.key(i));
