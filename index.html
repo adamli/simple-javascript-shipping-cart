@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page title</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    <script type="text/javascript" >
+        $(function() {
+            storage = sessionStorage;
+            display_cart();
+        });
+
+        function add_to_cart($optional_item){
+            var $item = document.title;
+            if ($optional_item)
+                $item = $optional_item;
+
+            var $storage_item = storage.getItem($item);
+            var $quantity = 1;
+
+            if ($storage_item)
+                $quantity = $quantity+1*$storage_item;
+
+            storage.setItem( $item, $quantity );
+
+            console.log('"'+$item+'" added to cart. ('+$quantity+' in cart)');
+            display_cart();
+
+        }
+
+        function display_cart(){
+            for (var i = 0; i < storage.length; i++){
+                $item_name = storage.key(i);
+                $item_qty =  storage.getItem(storage.key(i));
+            }
+            $('#cart').val(JSON.stringify(storage));
+        }
+
+        function empty_cart(){
+            storage.clear();
+            display_cart();
+        }
+    </script>
+</head>
+<body>
+<input type="button" value="Add <Page title> to cart" onclick="add_to_cart()">
+<input type="button" value="Add 'Vacation' cart" onclick="add_to_cart('Vacation')">
+<input type="button" value="Add 'Vacation' cart" onclick="add_to_cart('Autombile')"><br/>
+<textarea name="cart" id="cart" rows="10" cols="50"></textarea><br/>
+<input type="button" value="Empty cart" onclick="empty_cart()">
+</body>
+</html>
