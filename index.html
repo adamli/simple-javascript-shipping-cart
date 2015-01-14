@@ -29,11 +29,14 @@
         }
 
         function display_cart(){
+            var $cart_text = '';
             for (var i = 0; i < storage.length; i++){
                 $item_name = storage.key(i);
                 $item_qty =  storage.getItem(storage.key(i));
+                $cart_text += $item_qty+' x '+$item_name+'\n';
             }
             $('#cart').val(JSON.stringify(storage));
+            $('#cart_text').val($cart_text);
         }
 
         function empty_cart(){
@@ -43,10 +46,13 @@
     </script>
 </head>
 <body>
-<input type="button" value="Add <Page title> to cart" onclick="add_to_cart()">
-<input type="button" value="Add 'Vacation' cart" onclick="add_to_cart('Vacation')">
-<input type="button" value="Add 'Vacation' cart" onclick="add_to_cart('Autombile')"><br/>
-<textarea name="cart" id="cart" rows="10" cols="50"></textarea><br/>
+<input type="button" value="Add <Page title> to cart" onclick="add_to_cart()"><br/>
+<textarea cols="90" id="cart_text" name="cart_text" rows="3"></textarea><br />
+<textarea cols="90" id="cart" name="cart" rows="3"></textarea><br />
 <input type="button" value="Empty cart" onclick="empty_cart()">
+<!--
+<input type="button" value="Add 'Vacation' cart" onclick="add_to_cart('Vacation')">
+<input type="button" value="Add 'Vacation' cart" onclick="add_to_cart('Autombile')">
+-->
 </body>
 </html>
